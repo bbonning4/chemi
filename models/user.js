@@ -7,7 +7,11 @@ const userSchema = new Schema({
         type: String,
         require: true
     },
-    email: String
+    email: String,
+    folders: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Folder'
+    }]
 }, {
     timestamps: true
 });

@@ -10,9 +10,9 @@
 <body>
     <nav>
         <img src="/images/chemi1.png">
-        <a href="" <%- title === 'Home' ? 'class="active"' : '' %>>HOME</a>
+        <a href="/" <%- title === 'Home' ? 'class="active"' : '' %>>HOME</a>
         <% if (user) { %>
-            <a href="" <%- title === '' ? 'class="active"' : '' %>>link</a>
+            <a href="/folders" <%- title === 'Folders' ? 'class="active"' : '' %>>FOLDERS</a>
             <a href="" <%- title === '' ? 'class="active"' : '' %>>link</a>
             <a href="/logout">LOG OUT</a>
         <% } else { %>

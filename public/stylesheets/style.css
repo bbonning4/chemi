@@ -8,19 +8,26 @@ body {
   margin: 0;
   height: 100vh;
   display: grid;
-  grid-template-rows: 50px 1fr;
+  grid-template-rows: 50px 50px 1fr;
   grid-template-areas: 
     "nav"
+    "nav2"
     "main"
 }
 
 body > nav {
-  grid-area: nav;
+  grid-area: nav; 
   background-color: #B8C0C2;
   display: flex;
   justify-content: flex-end;
   align-items: center;
   padding: 0 20px 0 30px;
+}
+
+body > nav.folders {
+  grid-area: nav2;
+  background-color: yellow;
+  justify-content: flex-start;
 }
 
 nav > img {
