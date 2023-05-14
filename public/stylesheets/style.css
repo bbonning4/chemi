@@ -63,3 +63,13 @@ nav > a.active {
 .login img {
   height: 30px;
 }
+
+#update-folder > textarea {
+  border: none;
+  outline: none;
+  font-size: inherit;
+  font-family: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: text;
+}

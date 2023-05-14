@@ -16,4 +16,7 @@ router.post('/folders', ensureLoggedIn, foldersCtrl.create);
 // DELETE /folders/:id
 router.delete('/folders/:id', ensureLoggedIn, foldersCtrl.delete);
 
+// PUT /folders/:id
+router.put('/folders/:id', ensureLoggedIn, foldersCtrl.update);
+
 module.exports = router;

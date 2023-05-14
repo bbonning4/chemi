@@ -1,13 +1,13 @@
 const Folder = require('../models/folder');
 const User = require('../models/user');
-const { ObjectId } = require('mongodb');
 
 module.exports = {
     index,
     new: newFolder,
     create,
     show,
-    delete: deleteFolder
+    delete: deleteFolder,
+    update
 }
 
 async function index(req, res) {
@@ -23,9 +23,9 @@ async function create(req, res) {
     const user = await User.findById(req.user._id);
     req.body.user = user;
     try {
-        const folder = await Folder.create(req.body);
-        user.folders.push(folder._id);
-        await user.save();
+        await Folder.create(req.body);
+        // user.folders.push(folder._id);
+        // await user.save();
     } catch(err) {
         console.log(err);
     }
@@ -39,12 +39,17 @@ async function show(req, res) {
 }
 
 async function deleteFolder(req, res) {
-    const user = await User.findOne({ '_id': req.user._id })
-    if(!user) return res.redirect('/folders');
+    // const user = await User.findOne({ '_id': req.user._id })
+    // if(!user) return res.redirect('/folders');
     
     await Folder.deleteOne({ _id: req.params.id });
     
-    user.folders.remove(req.params.id);
-    await user.save();
+    // user.folders.remove(req.params.id);
+    // await user.save();
     res.redirect('/folders')
+}
+
+async function update(req, res) {
+    await Folder.updateOne({ _id: req.params.id }, req.body);
+    res.redirect(`/folders/${req.params.id}`);
 }

@@ -1,7 +1,17 @@
 <%- include('../partials/header') %>
 
 <%- include('../partials/folderNav') %>
-<p><%= folder.description %></p>
+
+<form action="/folders/<%= folder._id %>?_method=PUT" method="POST">
+    <div id="update-folder">
+        <textarea name="name" cols="30" rows="1"><%= folder.name %></textarea><br>
+        <textarea name="description" cols="30" rows="10"><%= folder.description %></textarea>
+        <!-- <input type="text" value="<%= folder.name %>" name="name"><br>
+        <input type="text" value="<%= folder.description %>" name="description"> -->
+    </div>
+    <button type="submit">Update Folder</button>
+</form>
+
 <form action="/folders/<%= folder._id %>?_method=DELETE" method="POST">
     <button type="submit">Delete Folder</button>
 </form>
