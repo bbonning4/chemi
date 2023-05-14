@@ -1,0 +1,13 @@
+<%- include('../partials/header') %>
+
+<form action="/folders" method="POST">
+    <label>Folder Name
+        <input type="text" name="name">
+    </label>
+    <label>Add a Description:
+        <input type="text" name="description">
+    </label>
+    <input type="submit" value="Create">
+</form>
+
+<%- include('../partials/footer') %>

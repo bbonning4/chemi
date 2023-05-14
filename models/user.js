@@ -9,8 +9,7 @@ const userSchema = new Schema({
     },
     email: String,
     folders: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Folder'
+        type: Schema.Types.ObjectId
     }]
 }, {
     timestamps: true

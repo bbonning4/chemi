@@ -1,0 +1,8 @@
+<nav class="folders">
+    <% folders.forEach(f => { %>
+        <a href="/folders/<%= f._id %>"><%= f.name %></a>
+    <% }); %>
+    <form action="/folders/new" method="GET">
+        <button type="submit">New Folder</button>
+    </form>
+</nav>
