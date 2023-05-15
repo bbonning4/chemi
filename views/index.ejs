@@ -1,6 +1,65 @@
 <%- include('./partials/header') %>
 
-<h1><%= title %></h1>
-<p>Welcome to <%= title %></p>
+<script>
+    ChemDoodle.DEFAULT_STYLES.bondLength_2D = 14.4;
+    ChemDoodle.DEFAULT_STYLES.bonds_width_2D = .6;
+    ChemDoodle.DEFAULT_STYLES.bonds_saturationWidthAbs_2D = 2.6;
+    ChemDoodle.DEFAULT_STYLES.bonds_hashSpacing_2D = 2.5;
+    ChemDoodle.DEFAULT_STYLES.atoms_font_size_2D = 10;
+    ChemDoodle.DEFAULT_STYLES.atoms_font_families_2D = ['Helvetica', 'Arial', 'sans-serif'];
+    ChemDoodle.DEFAULT_STYLES.atoms_displayTerminalCarbonLabels_2D = true;
+    ChemDoodle.DEFAULT_STYLES.atoms_useJMOLColors = true;
+
+    // changes the default JMol color of hydrogen to black so it appears on white backgrounds
+    ChemDoodle.ELEMENT['H'].jmolColor = 'black';
+    // darkens the default JMol color of sulfur so it appears on white backgrounds
+    ChemDoodle.ELEMENT['S'].jmolColor = '#B9A130';
+    // initializes the SketcherCanvas
+    let sketcher = new ChemDoodle.SketcherCanvas('sketcher', 500, 300, {useServices:true, oneMolecule:true});
+    // sets terminal carbon labels to display
+    sketcher.styles.atoms_displayTerminalCarbonLabels_2D = true;
+    // sets atom labels to be colored by JMol colors, which are easy to recognize
+    sketcher.styles.atoms_useJMOLColors = true;
+    // enables overlap clear widths, so that some depth is introduced to overlapping bonds
+    sketcher.styles.bonds_clearOverlaps_2D = true;
+    // sets the shape color to improve contrast when drawing figures
+    sketcher.styles.shapes_color = 'c10000';
+    // because we do not load any content, we need to repaint the sketcher, otherwise we would just see an empty area with the toolbar
+    // however, you can instead use one of the Canvas.load... functions to pre-populate the canvas with content, then you don't need to call repaint
+    sketcher.repaint();
+
+    function getMol() {
+        let mol = sketcher.getMolecule();
+        let molFile = ChemDoodle.writeMOL(mol);
+        alert(molFile);
+    }
+</script>
+<input type="button" onclick="getMol()" value="Get MOLFile">
+
+<script>
+    let myCanvas = new ChemDoodle.ViewerCanvas('id', 150, 150);
+    //the width of the bonds should be .6 pixels
+    myCanvas.styles.bonds_width_2D = .6;
+    //the spacing between higher order bond lines should be 18% of the length of the bond
+    myCanvas.styles.bonds_saturationWidthAbs_2D = 2.6;
+    //the hashed wedge spacing should be 2.5 pixels
+    myCanvas.styles.bonds_hashSpacing_2D = 2.5;
+    //the atom label font size should be 10
+    myCanvas.styles.atoms_font_size_2D = 10;
+    //we define a cascade of acceptable font families
+    //if Helvetica is not found, Arial will be used
+    myCanvas.styles.atoms_font_families_2D = ['Helvetica', 'Arial', 'sans-serif'];
+    //display carbons labels if they are terminal
+    myCanvas.styles.atoms_displayTerminalCarbonLabels_2D = true;
+    //add some color by using JMol colors for elements
+    myCanvas.styles.atoms_useJMOLColors = true;
+    myCanvas.emptyMessage = 'No Data Loaded!';
+    let caffeineMolFile =
+        'Molecule Name\n  CHEMDOOD08070920033D 0   0.00000     0.00000     0\n[Insert Comment Here]\n 14 15  0  0  0  0  0  0  0  0  1 V2000\n   -0.3318    2.0000    0.0000   O 0  0  0  1  0  0  0  0  0  0  0  0\n   -0.3318    1.0000    0.0000   C 0  0  0  1  0  0  0  0  0  0  0  0\n   -1.1980    0.5000    0.0000   N 0  0  0  1  0  0  0  0  0  0  0  0\n    0.5342    0.5000    0.0000   C 0  0  0  1  0  0  0  0  0  0  0  0\n   -1.1980   -0.5000    0.0000   C 0  0  0  1  0  0  0  0  0  0  0  0\n   -2.0640    1.0000    0.0000   C 0  0  0  4  0  0  0  0  0  0  0  0\n    1.4804    0.8047    0.0000   N 0  0  0  1  0  0  0  0  0  0  0  0\n    0.5342   -0.5000    0.0000   C 0  0  0  1  0  0  0  0  0  0  0  0\n   -2.0640   -1.0000    0.0000   O 0  0  0  1  0  0  0  0  0  0  0  0\n   -0.3318   -1.0000    0.0000   N 0  0  0  1  0  0  0  0  0  0  0  0\n    2.0640   -0.0000    0.0000   C 0  0  0  2  0  0  0  0  0  0  0  0\n    1.7910    1.7553    0.0000   C 0  0  0  4  0  0  0  0  0  0  0  0\n    1.4804   -0.8047    0.0000   N 0  0  0  1  0  0  0  0  0  0  0  0\n   -0.3318   -2.0000    0.0000   C 0  0  0  4  0  0  0  0  0  0  0  0\n  1  2  2  0  0  0  0\n  3  2  1  0  0  0  0\n  4  2  1  0  0  0  0\n  3  5  1  0  0  0  0\n  3  6  1  0  0  0  0\n  7  4  1  0  0  0  0\n  4  8  2  0  0  0  0\n  9  5  2  0  0  0  0\n 10  5  1  0  0  0  0\n 10  8  1  0  0  0  0\n  7 11  1  0  0  0  0\n  7 12  1  0  0  0  0\n 13  8  1  0  0  0  0\n 13 11  2  0  0  0  0\n 10 14  1  0  0  0  0\nM  END\n> <DATE>\n07-08-2009\n';
+    let caffeine = ChemDoodle.readMOL(caffeineMolFile);
+    //the bond lengths should be 14.4 pixels
+    caffeine.scaleToAverageBondLength(14.4);
+    myCanvas.loadMolecule(caffeine);
+</script>
 
 <%- include('./partials/footer') %>
