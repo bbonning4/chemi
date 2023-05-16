@@ -6,11 +6,20 @@
     <div id="update-folder">
         <textarea name="name" cols="30" rows="1"><%= folder.name %></textarea><br>
         <textarea name="description" cols="30" rows="10"><%= folder.description %></textarea>
-        <!-- <input type="text" value="<%= folder.name %>" name="name"><br>
-        <input type="text" value="<%= folder.description %>" name="description"> -->
     </div>
     <button type="submit">Update Folder</button>
 </form>
+
+<%  if (materials.length) { %>
+<form action="/folders/<%= folder._id %>/materials" method="POST">
+    <select name="name">
+        <% materials.forEach(m => { %>
+            <option value="<%= m.name %>"><%= m.name %></option>
+        <% }) %>
+    </select>
+    <button type="submit">Add Compound to Folder</button>
+</form>
+<% } %>
 
 <form action="/folders/<%= folder._id %>?_method=DELETE" method="POST">
     <button type="submit">Delete Folder</button>

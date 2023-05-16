@@ -1,5 +1,6 @@
 const Folder = require('../models/folder');
 const User = require('../models/user');
+const Material = require('../models/material')
 
 module.exports = {
     index,
@@ -35,7 +36,8 @@ async function create(req, res) {
 async function show(req, res) {
     const folder = await Folder.findById(req.params.id);
     const folders = await Folder.find({ 'user': req.user._id });
-    res.render('folders/show', { title: 'Folder', folder, folders });
+    const materials = await Material.find({ 'user':req.user._id })
+    res.render('folders/show', { title: 'Folder', folder, folders, materials });
 }
 
 async function deleteFolder(req, res) {

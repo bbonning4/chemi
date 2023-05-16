@@ -10,5 +10,7 @@ router.get('/search', materialsCtrl.search);
 router.get('/materials/:id', materialsCtrl.show);
 // POST /materials (create)
 router.post('/materials', ensureLoggedIn, materialsCtrl.save);
+// associate materials with folders
+router.post('/folders/:folderId/materials', ensureLoggedIn, materialsCtrl.addToFolder)
 
 module.exports = router;

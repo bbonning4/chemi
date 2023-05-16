@@ -5,14 +5,17 @@
     <button type="submit">Search</button>
 </form>
 <% if (cid) { %>
-    <% if (req.user) { %>
-    <form action="/materials" method="POST">
-        <button type="submit">Save Compound</button>
-    </form>
-    <% } %>
     <h2>CID: <%= cid %></h2>
     <% if (imageBase64) { %>
         <img src="data:image/png;base64,<%= imageBase64 %>" alt="Chemical Structure">
+        <% if (req.user) { %>
+            <form action="/materials" method="POST">
+                <input type="hidden" name="name" value="<%= name %>">
+                <input type="hidden" name="cid" value="<%= cid %>">
+                <input type="hidden" name="imageBase64" value="<%= imageBase64 %>">
+                <button type="submit">Save Compound</button>
+            </form>
+        <% } %>
     <% } %>
 <% } else { %>
     <p>No results :(</p>
