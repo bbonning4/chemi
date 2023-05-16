@@ -10,7 +10,9 @@ const headers = {
 };
 
 module.exports = {
-    search
+    search,
+    show,
+    save
 }
 
 async function search(req, res) {
@@ -20,6 +22,25 @@ async function search(req, res) {
         .catch(err => {
             console.error(err);
         });
-    console.log(results);
-    res.render('materials/search', { title: 'Search', results });
+    if (!results.IdentifierList) {
+        return res.render('materials/search', { title: 'Search', cid:undefined, imageBase64:undefined, req });
+    }
+    const cid = results.IdentifierList.CID[0];
+    const imgResult = await fetch(`https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/CID/${cid}/PNG`)
+    .then(res => res.arrayBuffer())    
+    .then(buffer => {
+            const imageBase64 = Buffer.from(buffer).toString('base64');
+            res.render('materials/search', { title: 'Search', cid, imageBase64, req });
+        })
+        .catch(err => {
+            console.error(err);
+        });
+}
+
+function show(req, res) {
+
+}
+
+function save(req, res) {
+
 }

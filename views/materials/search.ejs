@@ -4,8 +4,16 @@
     <input type="text" name="q" placeholder="Search by Name" required>
     <button type="submit">Search</button>
 </form>
-<% if (results.IdentifierList) { %>
-    <%= results.IdentifierList.CID[0] %>
+<% if (cid) { %>
+    <% if (req.user) { %>
+    <form action="/materials" method="POST">
+        <button type="submit">Save Compound</button>
+    </form>
+    <% } %>
+    <h2>CID: <%= cid %></h2>
+    <% if (imageBase64) { %>
+        <img src="data:image/png;base64,<%= imageBase64 %>" alt="Chemical Structure">
+    <% } %>
 <% } else { %>
     <p>No results :(</p>
 <% } %>
