@@ -6,7 +6,10 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "@next-tools/dynamic": "^0.0.11",
+    "buffer": "^6.0.3",
     "cookie-parser": "~1.4.4",
+    "crypto-browserify": "^3.12.0",
     "debug": "~2.6.9",
     "dotenv": "^16.0.3",
     "ejs": "~2.6.1",
@@ -17,7 +20,18 @@
     "method-override": "^3.0.0",
     "mongoose": "^7.1.1",
     "morgan": "~1.9.1",
+    "node-fetch": "^2.6.11",
     "passport": "^0.6.0",
-    "passport-google-oauth": "^2.0.0"
+    "passport-google-oauth": "^2.0.0",
+    "path-browserify": "^1.0.1",
+    "rdkit": "^0.5.1",
+    "stream": "^0.0.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.21.8",
+    "@babel/preset-env": "^7.21.5",
+    "babel-loader": "^9.1.2",
+    "webpack": "^5.82.1",
+    "webpack-cli": "^5.1.1"
   }
 }

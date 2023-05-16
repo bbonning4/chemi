@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
-const passport = require('passport')
+const passport = require('passport');
+const fetch = require('node-fetch');
+const apiKey = process.env.API_KEY;
+const ROOT_URL = 'https://api.rsc.org/compounds/v1';
 
 /* GET home page. */
 router.get('/', function(req, res, next) {

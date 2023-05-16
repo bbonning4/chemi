@@ -1,0 +1,13 @@
+<%- include('../partials/header') %>
+
+<form action="/search" method="GET">
+    <input type="text" name="q" placeholder="Search by Name" required>
+    <button type="submit">Search</button>
+</form>
+<% if (results.IdentifierList) { %>
+    <%= results.IdentifierList.CID[0] %>
+<% } else { %>
+    <p>No results :(</p>
+<% } %>
+
+<%- include('../partials/footer') %>
