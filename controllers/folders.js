@@ -8,7 +8,8 @@ module.exports = {
     create,
     show,
     delete: deleteFolder,
-    update
+    update,
+    removeMaterial
 }
 
 async function index(req, res) {
@@ -49,4 +50,19 @@ async function deleteFolder(req, res) {
 async function update(req, res) {
     await Folder.updateOne({ _id: req.params.id }, req.body);
     res.redirect(`/folders/${req.params.id}`);
+}
+
+async function removeMaterial(req, res) {
+    const { folderId, materialId } = req.params;
+    try {
+        const folder = await Folder.findById(folderId);
+        if (!folder) {
+            return res.status(404).json({ error: 'Folder not found' });
+        }
+        folder.materials.pull(materialId);
+        await folder.save();
+    } catch (err) {
+        console.log(err)
+    }
+    res.redirect(`/folders/${folderId}`);
 }

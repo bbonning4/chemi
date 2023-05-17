@@ -15,6 +15,8 @@ router.post('/folders', ensureLoggedIn, foldersCtrl.create);
 
 // DELETE /folders/:id
 router.delete('/folders/:id', ensureLoggedIn, foldersCtrl.delete);
+// DELETE /folders/:folderId/materials/:materialId
+router.delete('/folders/:folderId/materials/:materialId', foldersCtrl.removeMaterial)
 
 // PUT /folders/:id
 router.put('/folders/:id', ensureLoggedIn, foldersCtrl.update);

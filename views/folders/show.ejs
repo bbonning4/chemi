@@ -17,6 +17,9 @@
             <a href="/materials/<%= m.name %>">
                 <img src="data:image/png;base64,<%= m.imageBase64 %>" alt="Chemical Structure">
             </a>
+            <form action="/folders/<%= folder._id %>/materials/<%= m._id %>?_method=DELETE" method="POST">
+                <button type="submit">Remove</button>
+            </form>
         </div>
     <% }) %>
 <% } %>
