@@ -27,30 +27,17 @@ sketcher.styles.shapes_color = 'c10000';
 // because we do not load any content, we need to repaint the sketcher, otherwise we would just see an empty area with the toolbar
 // however, you can instead use one of the Canvas.load... functions to pre-populate the canvas with content, then you don't need to call repaint
 sketcher.repaint();
-
-// let myCanvas = new ChemDoodle.ViewerCanvas('id', 150, 150);
-// //the width of the bonds should be .6 pixels
-// myCanvas.styles.bonds_width_2D = .6;
-// //the spacing between higher order bond lines should be 18% of the length of the bond
-// myCanvas.styles.bonds_saturationWidthAbs_2D = 2.6;
-// //the hashed wedge spacing should be 2.5 pixels
-// myCanvas.styles.bonds_hashSpacing_2D = 2.5;
-// //the atom label font size should be 10
-// myCanvas.styles.atoms_font_size_2D = 10;
-// //we define a cascade of acceptable font families
-// //if Helvetica is not found, Arial will be used
-// myCanvas.styles.atoms_font_families_2D = ['Helvetica', 'Arial', 'sans-serif'];
-// //display carbons labels if they are terminal
-// myCanvas.styles.atoms_displayTerminalCarbonLabels_2D = true;
-// //add some color by using JMol colors for elements
-// myCanvas.styles.atoms_useJMOLColors = true;
-// myCanvas.emptyMessage = 'No Data Loaded!';
 </script>
+
+<form action="/sketchsearch" method="GET">
+    <input type="hidden" id="molFile" name="molFile">
+    <button id="sketch-search" type="submit">Search Sketch</button>
+</form>
+
 <h1>OR</h1>
 <form action="/search" method="GET">
     <input type="text" name="q" placeholder="Search by Name" required>
     <button type="submit">Search</button>
 </form>
-<input type="button" onclick="getMol()" value="Get MOLFile">
 
 <%- include('./partials/footer') %>

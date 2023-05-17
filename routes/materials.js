@@ -6,6 +6,8 @@ const ensureLoggedIn = require('../config/ensureLoggedIn');
 
 // GET /search
 router.get('/search', materialsCtrl.search);
+// GET /sketchsearch
+router.get('/sketchsearch', materialsCtrl.sketchsearch)
 // GET /materials index
 router.get('/materials', ensureLoggedIn, materialsCtrl.index);
 // GET /materials/:id

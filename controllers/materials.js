@@ -2,12 +2,13 @@ const Material = require('../models/material');
 const Folder = require('../models/folder');
 const User = require('../models/user');
 const fetch = require('node-fetch');
-const { name } = require('ejs');
-const apiKey = process.env.API_KEY;
-const ROOT_URL = 'https://api.rsc.org/compounds/v1';
+const OCL = require('openchemlib');
+const parseString = require('xml2js').parseString;
+
 
 module.exports = {
     search,
+    sketchsearch,
     show,
     save,
     addToFolder,
@@ -29,16 +30,71 @@ async function search(req, res) {
     const imgResult = await fetch(`https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/CID/${cid}/PNG`)
     .then(res => res.arrayBuffer())    
     .then(buffer => {
-            const imageBase64 = Buffer.from(buffer).toString('base64');
-            res.render('materials/search', { title: 'Search', cid, imageBase64, req, name:search });
-        })
-        .catch(err => {
-            console.error(err);
+        const imageBase64 = Buffer.from(buffer).toString('base64');
+        res.render('materials/search', { title: 'Search', cid, imageBase64, req, name:search });
+    })
+    .catch(err => {
+        console.error(err);
+    });
+}
+
+async function sketchsearch(req, res) {
+    try {
+        const mol = OCL.Molecule.fromMolfile(req.query.molFile);
+        const SMILES = mol.toIsomericSmiles();
+    
+        const url = `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/smiles/${encodeURIComponent(SMILES)}/JSON`;
+        const headers = {
+            'Accept': 'application/json'
+        }
+    
+        const response = await fetch(url, { headers })
+        const contentType = response.headers.get('content-type');
+    
+        let data;
+    
+        if (contentType.includes('application/json')) {
+            data = await response.json();
+        } else if (contentType.includes('application/xml')) {
+            const xmlText = await response.text();
+            data = await parseXmlToJSON(xmlText);
+        } else {
+            throw new Error('Unexpected response format');
+        }
+    
+        if (!data.PC_Compounds || !data.PC_Compounds[0].id.id) {
+            return res.render('materials/search', { title: 'Search', cid:undefined, imageBase64:undefined, req });
+        }
+        const cid = data.PC_Compounds[0].id.id.cid;
+        const compoundName = data.PC_Compounds[0].props.find(prop => prop.urn.label === 'IUPAC Name').value.sval;
+        console.log('CID:', cid);
+        console.log('Compound Name:', compoundName);
+    
+        const imgResponse = await fetch(`https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/CID/${cid}/PNG`);
+        const imgBuffer = await imgResponse.arrayBuffer();
+        const imageBase64 = Buffer.from(imgBuffer).toString('base64');
+    
+        res.render('materials/search', { title: 'Search', cid, imageBase64, req, name: compoundName });
+        
+    } catch (err) {
+        console.error(err);
+    }
+
+}
+
+function parseXmlToJSON(xmlText) {
+    return new Promise((resolve, reject) => {
+        parseString(xmlText, (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
         });
+    });
 }
 
 function show(req, res) {
-    // essentially, redirect to the /search?q=${name}
     res.redirect(`/search?q=${req.params.name}`);
 }
 
