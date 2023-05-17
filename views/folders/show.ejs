@@ -10,7 +10,16 @@
     <button type="submit">Update Folder</button>
 </form>
 
-<%  if (materials.length) { %>
+<% if (materialsInFolder.length) { %>
+    <% materialsInFolder.forEach(m => { %>
+        <div class="compound">
+            <label><%= m.name %></label>
+            <img src="data:image/png;base64,<%= m.imageBase64 %>" alt="Chemical Structure">
+        </div>
+    <% }) %>
+<% } %>
+
+<% if (materials.length) { %>
 <form action="/folders/<%= folder._id %>/materials" method="POST">
     <select name="name">
         <% materials.forEach(m => { %>

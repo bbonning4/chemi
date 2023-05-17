@@ -42,7 +42,7 @@ function show(req, res) {
 async function save(req, res) {
     const user = await User.findById(req.user._id);
     req.body.user = user;
-    const compounds = await Material.find({ cid: req.body.cid })
+    const compounds = await Material.find({ cid: req.body.cid, user: req.user._id })
     if (compounds.length) {
         return res.redirect(`/search?q=${req.body.name}`);
     }

@@ -25,8 +25,6 @@ async function create(req, res) {
     req.body.user = user;
     try {
         await Folder.create(req.body);
-        // user.folders.push(folder._id);
-        // await user.save();
     } catch(err) {
         console.log(err);
     }
@@ -37,17 +35,14 @@ async function show(req, res) {
     const folder = await Folder.findById(req.params.id);
     const folders = await Folder.find({ 'user': req.user._id });
     const materials = await Material.find({ 'user':req.user._id })
-    res.render('folders/show', { title: 'Folder', folder, folders, materials });
+
+    const materialsInFolder = await Material.find({ _id: { $in: folder.materials } });
+    
+    res.render('folders/show', { title: 'Folder', folder, folders, materials, materialsInFolder });
 }
 
 async function deleteFolder(req, res) {
-    // const user = await User.findOne({ '_id': req.user._id })
-    // if(!user) return res.redirect('/folders');
-    
     await Folder.deleteOne({ _id: req.params.id });
-    
-    // user.folders.remove(req.params.id);
-    // await user.save();
     res.redirect('/folders')
 }
 
