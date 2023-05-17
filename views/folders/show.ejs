@@ -4,8 +4,8 @@
 
 <form action="/folders/<%= folder._id %>?_method=PUT" method="POST">
     <div id="update-folder">
-        <textarea name="name" cols="30" rows="1"><%= folder.name %></textarea><br>
-        <textarea name="description" cols="30" rows="10"><%= folder.description %></textarea>
+        <textarea name="name"><%= folder.name %></textarea><br>
+        <textarea name="description" cols="40"><%= folder.description %></textarea>
     </div>
     <button type="submit">Update Folder</button>
 </form>
@@ -13,8 +13,10 @@
 <% if (materialsInFolder.length) { %>
     <% materialsInFolder.forEach(m => { %>
         <div class="compound">
-            <label><%= m.name %></label>
-            <img src="data:image/png;base64,<%= m.imageBase64 %>" alt="Chemical Structure">
+            <label><a href="/materials/<%= m.name %>"><%= m.name %></a></label>
+            <a href="/materials/<%= m.name %>">
+                <img src="data:image/png;base64,<%= m.imageBase64 %>" alt="Chemical Structure">
+            </a>
         </div>
     <% }) %>
 <% } %>

@@ -1,0 +1,28 @@
+<%- include('../partials/header') %>
+
+<% if (materials.length) { %>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>CID</th>
+            <th>PubChem</th>
+        </tr>
+        <% materials.forEach(m => { %>
+            <tr>
+                <td><a href="/materials/<%= m.name %>"><%= m.name %></a></td>
+                <td><%= m.cid %></td>
+                <td><a href="https://pubchem.ncbi.nlm.nih.gov/compound/<%= m.cid %>">PubChem</a></td>
+                <td>
+                    <form action="/materials/<%= m._id %>?_method=DELETE" method="POST">
+                        <button type="submit">x</button>
+                    </form>
+                </td>
+            </tr>
+        <% }) %>
+    </table>
+
+<% } else { %>
+<p>No saved materials, yet.</p>
+<% } %>
+
+<%- include('../partials/footer') %>

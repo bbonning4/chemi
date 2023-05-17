@@ -5,7 +5,10 @@
     <button type="submit">Search</button>
 </form>
 <% if (cid) { %>
+    <h2><%= name %></h2>
     <h2>CID: <%= cid %></h2>
+    <a href="https://pubchem.ncbi.nlm.nih.gov/compound/<%= cid %>">PubChem</a>
+    <a href="https://pubchem.ncbi.nlm.nih.gov/compound/<%= cid %>#section=Chemical-Vendors&fullscreen=true">Vendors</a>
     <% if (imageBase64) { %>
         <img src="data:image/png;base64,<%= imageBase64 %>" alt="Chemical Structure">
         <% if (req.user) { %>

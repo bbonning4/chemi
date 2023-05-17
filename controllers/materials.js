@@ -10,7 +10,9 @@ module.exports = {
     search,
     show,
     save,
-    addToFolder
+    addToFolder,
+    index,
+    delete: deleteMat
 }
 
 async function search(req, res) {
@@ -36,7 +38,8 @@ async function search(req, res) {
 }
 
 function show(req, res) {
-
+    // essentially, redirect to the /search?q=${name}
+    res.redirect(`/search?q=${req.params.name}`);
 }
 
 async function save(req, res) {
@@ -60,4 +63,15 @@ async function addToFolder(req, res) {
     folder.materials.push(material);
     await folder.save();
     res.redirect(`/folders/${folder._id}`);
+}
+
+async function index(req, res) {
+    // will render full list of saved 
+    const materials = await Material.find({ user: req.user._id })
+    res.render('materials/index', { title: 'Materials', materials });
+}
+
+async function deleteMat(req, res) {
+    await Material.deleteOne({ _id: req.params.id });
+    res.redirect('/materials');
 }
