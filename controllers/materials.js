@@ -67,8 +67,6 @@ async function sketchsearch(req, res) {
         }
         const cid = data.PC_Compounds[0].id.id.cid;
         const compoundName = data.PC_Compounds[0].props.find(prop => prop.urn.label === 'IUPAC Name').value.sval;
-        console.log('CID:', cid);
-        console.log('Compound Name:', compoundName);
     
         const imgResponse = await fetch(`https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/CID/${cid}/PNG`);
         const imgBuffer = await imgResponse.arrayBuffer();
