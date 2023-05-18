@@ -6,51 +6,53 @@
 
 body {
   margin: 0;
-  height: 100vh;
+  min-height: 100vh;
   display: grid;
   grid-template-rows: 60px 50px 1fr;
-  grid-template-areas: 
+  grid-template-areas:
     "nav"
     "nav2"
     "main";
   position: relative;
-  overflow: hidden;
+  overflow-y: auto;
+  background-color: grey; 
 }
 
 body::before,
 body::after {
   content: "";
-  position: absolute;
+  position: fixed;
   top: 0;
   bottom: 0;
   width: 20px;
-  background-color: green;
-  z-index: 0;
+  background-color: greenyellow;
+  z-index: -1;
 }
 
 body::before {
   left: 0;
-  grid-area: main;
+  grid-row: 2 / -1;
 }
 
 body::after {
   right: 0;
-  grid-area: main;
+  grid-row: 2 / -1;
 }
 
-body > * {
+main {
   grid-area: main;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: black;
-  color: white;
-  position: relative;
-  z-index: 1;
+  height: 100%;
 }
 
-body > nav {
-  grid-area: nav; 
+main > * {
+  max-width: 100%;
+}
+
+nav.navbar {
+  grid-area: nav;
   background-color: black;
   display: flex;
   justify-content: flex-end;
@@ -58,9 +60,12 @@ body > nav {
   padding: 0 20px 0 30px;
 }
 
-body > nav.folders {
+nav.folders {
   grid-area: nav2;
+  display: flex;
   justify-content: flex-start;
+  background-color: black;
+  padding: 10px 0;
 }
 
 nav.title {
@@ -110,6 +115,7 @@ nav > a.active {
 }
 
 #update-folder > textarea {
+  /* height: 100px; */
   border: none;
   outline: none;
   font-size: inherit;
@@ -119,17 +125,13 @@ nav > a.active {
   cursor: text;
 }
 
-
-nav.folders {
-  background-color: black;
-  display: flex;
-  justify-content: space-around;
-  padding: 10px 0;
+#update-folder textarea[name="name"] {
+  margin-top: 60px;
 }
 
 a.folder {
-  position: relative;
-  display: inline-block;
+  display: flex;
+  align-items: center;
   margin: 0 2px;
   padding: 10px 20px;
   background-color: yellow;
@@ -159,4 +161,12 @@ a.folder::after {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   border-bottom: 20px solid yellow;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(100% - 100px);
 }

@@ -1,7 +1,7 @@
 <%- include('../partials/header') %>
 
 <%- include('../partials/folderNav') %>
-
+<div class="content">
 <form action="/folders/<%= folder._id %>?_method=PUT" method="POST">
     <div id="update-folder">
         <textarea name="name"><%= folder.name %></textarea><br>
