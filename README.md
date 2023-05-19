@@ -17,4 +17,4 @@ Access the deployed site [here](https://chemi.herokuapp.com/ "Chemi").
 
 ## Next Steps
 * Displaying more information on the show page rather than having the user having to be directed pubchem.
-* More styling for a cleaner look
+* More styling for a cleaner/nicer look
