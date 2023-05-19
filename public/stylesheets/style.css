@@ -113,7 +113,7 @@ nav > a.active {
 }
 
 #update-folder textarea[name="name"] {
-  margin-top: 60px;
+  margin-top: 50px;
 }
 
 a.folder {
@@ -153,7 +153,16 @@ a.folder::after {
 .content {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   height: calc(100% - 100px);
+}
+
+.title {
+  font-size: 28px;
+}
+
+div.compound {
+  display: flex;
+  flex-direction: column;
 }

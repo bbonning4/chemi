@@ -5,7 +5,7 @@
 <form action="/folders/<%= folder._id %>?_method=PUT" method="POST">
     <div id="update-folder">
         <textarea name="name"><%= folder.name %></textarea><br>
-        <textarea name="description" cols="40"><%= folder.description %></textarea>
+        <textarea name="description" cols="60"><%= folder.description %></textarea>
     </div>
     <button type="submit">Update Folder</button>
 </form>
