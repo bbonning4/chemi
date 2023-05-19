@@ -39,18 +39,6 @@ body::after {
   grid-row: 2 / -1;
 }
 
-main {
-  grid-area: main;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
-
-main > * {
-  max-width: 100%;
-}
-
 nav.navbar {
   grid-area: nav;
   background-color: black;
@@ -115,14 +103,13 @@ nav > a.active {
 }
 
 #update-folder > textarea {
-  /* height: 100px; */
   border: none;
   outline: none;
   font-size: inherit;
   font-family: inherit;
   color: inherit;
   background-color: transparent;
-  cursor: text;
+  cursor: default;
 }
 
 #update-folder textarea[name="name"] {
